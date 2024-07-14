@@ -1,0 +1,22 @@
+name: Comment on Pull Request
+
+on:
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Comment on PR
+        run: |
+          COMMENT="Hello! Thank you for opening this Pull Request."
+          gh pr comment ${{ github.event.pull_request.number }} --body "$COMMENT"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
